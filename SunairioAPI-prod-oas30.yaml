@@ -140,6 +140,12 @@ paths:
                 $ref: "#/components/schemas/Empty"
       security:
       - api_key: []
+      x-codeSamples:
+      - lang: 'Python'
+        source: |
+          url = https://sunairio-api.com/v1/fcstpct?apiKey{apiKey}&loc='KDFW'&fmt=csv
+          data = requests.get(url)
+          df = pd.read_csv(StringIO(data), index_col=0)
   /fcst:
     get:
       description: "Simulation Percentiles. DEPRECATED"
