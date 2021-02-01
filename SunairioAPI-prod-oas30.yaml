@@ -1,0 +1,259 @@
+openapi: "3.0.1"
+info:
+  title: "SunairioAPI"
+  version: "2021-01-29T16:27:36Z"
+servers:
+- url: "https://sunairio-api.com/{basePath}"
+  variables:
+    basePath:
+      default: "/v1"
+paths:
+  /rawfile:
+    get:
+      parameters:
+      - name: "fcstDate"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "feature"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "loc"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "tz"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "cycle"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "apiKey"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "agg"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "timeFmt"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "freq"
+        in: "query"
+        schema:
+          type: "string"
+      responses:
+        200:
+          description: "200 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empty"
+      security:
+      - SunairioAuthViaLambdaDB: []
+      - api_key: []
+  /fcstpct:
+    get:
+      parameters:
+      - name: "feature"
+        in: "query"
+        required: true
+        schema:
+          type: "string"
+      - name: "fcstDate"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "fmt"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "cols"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "loc"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "tz"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "cycle"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "apiKey"
+        in: "query"
+        required: true
+        schema:
+          type: "string"
+      - name: "pct"
+        in: "query"
+        required: true
+        schema:
+          type: "string"
+      - name: "timeFmt"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "agg"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "freq"
+        in: "query"
+        schema:
+          type: "string"
+      responses:
+        200:
+          description: "200 response"
+          content: {}
+      security:
+      - SunairioAuthViaLambdaDB: []
+      - api_key: []
+  /fcst:
+    get:
+      description: "return simulation quantiles"
+      parameters:
+      - name: "feature"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "fcstDate"
+        in: "query"
+        description: "YYYYMMDD or blank for current"
+        schema:
+          type: "string"
+      - name: "fmt"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "cols"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "loc"
+        in: "query"
+        description: "ICAO code or 'ercot'"
+        schema:
+          type: "string"
+      - name: "quantile"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "tz"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "cycle"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "apiKey"
+        in: "query"
+        required: true
+        schema:
+          type: "string"
+      - name: "timeFmt"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "agg"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "freq"
+        in: "query"
+        description: "'h' for hourly, 'd' for daily"
+        schema:
+          type: "string"
+      responses:
+        200:
+          description: "200 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empty"
+      security:
+      - SunairioAuthViaLambdaDB: []
+      - api_key: []
+  /project:
+    get:
+      parameters:
+      - name: "feature"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "fmt"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "loc"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "projName"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "tz"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "apiKey"
+        in: "query"
+        required: true
+        schema:
+          type: "string"
+      - name: "timeFmt"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "freq"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "marksDate"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "bucket"
+        in: "query"
+        schema:
+          type: "string"
+      - name: "version"
+        in: "query"
+        schema:
+          type: "string"
+      responses:
+        200:
+          description: "200 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empty"
+      security:
+      - SunairioAuthViaLambdaDB: []
+      - api_key: []
+components:
+  schemas:
+    Empty:
+      title: "Empty Schema"
+      type: "object"
+  securitySchemes:
+    api_key:
+      type: "apiKey"
+      name: "x-api-key"
+      in: "header"
+    SunairioAuthViaLambdaDB:
+      type: "apiKey"
+      name: "apiKey"
+      in: "query"
+      x-amazon-apigateway-authtype: "custom"
