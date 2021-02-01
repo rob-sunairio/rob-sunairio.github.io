@@ -1,7 +1,7 @@
 openapi: "3.0.1"
 info:
   title: "SunairioAPI"
-  version: "2021-01-29T16:27:36Z"
+  version: "2021-02-01T20:24:48Z"
 servers:
 - url: "https://sunairio-api.com/{basePath}"
   variables:
@@ -51,7 +51,7 @@ paths:
         200:
           description: "200 response"
           content:
-            application/json:
+            text/csv:
               schema:
                 $ref: "#/components/schemas/Empty"
       security:
@@ -59,6 +59,7 @@ paths:
       - api_key: []
   /fcstpct:
     get:
+      description: "return multiple simulation percentiles"
       parameters:
       - name: "feature"
         in: "query"
@@ -114,13 +115,19 @@ paths:
       responses:
         200:
           description: "200 response"
-          content: {}
+          content:
+            text/csv:
+              schema:
+                $ref: "#/components/schemas/Empty"
+            text/html:
+              schema:
+                $ref: "#/components/schemas/Empty"
       security:
       - SunairioAuthViaLambdaDB: []
       - api_key: []
   /fcst:
     get:
-      description: "return simulation quantiles"
+      description: "deprecated. use /fcstpct instead"
       parameters:
       - name: "feature"
         in: "query"
@@ -178,7 +185,10 @@ paths:
         200:
           description: "200 response"
           content:
-            application/json:
+            text/csv:
+              schema:
+                $ref: "#/components/schemas/Empty"
+            text/html:
               schema:
                 $ref: "#/components/schemas/Empty"
       security:
@@ -232,13 +242,6 @@ paths:
         in: "query"
         schema:
           type: "string"
-      responses:
-        200:
-          description: "200 response"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Empty"
       security:
       - SunairioAuthViaLambdaDB: []
       - api_key: []
