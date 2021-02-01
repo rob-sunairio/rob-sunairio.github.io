@@ -10,7 +10,7 @@ servers:
 paths:
   /rawfile:
     get:
-      description: "raw simulations"
+      description: "Raw Simulations"
       parameters:
       - name: "fcstDate"
         in: "query"
@@ -60,10 +60,11 @@ paths:
       - api_key: []
   /fcstpct:
     get:
-      description: "simulation percentiles"
+      description: "Simulation Percentiles"
       parameters:
       - name: "feature"
         in: "query"
+        description: "forecast feature: 'tmp', e.g."
         required: true
         schema:
           type: "string"
@@ -101,11 +102,14 @@ paths:
           type: "string"
       - name: "apiKey"
         in: "query"
+        description: "unique identifier required for authentication"
         required: true
         schema:
           type: "string"
       - name: "pct"
         in: "query"
+        description: "forecast percentiles. comma-separated numbers from 1-99 and\
+          \ 'mean' For example '5,25,75,mean'"
         required: true
         schema:
           type: "string"
@@ -140,7 +144,7 @@ paths:
       - api_key: []
   /fcst:
     get:
-      description: "simulation percentiles. deprecated. use /fcstpct instead"
+      description: "Simulation Percentiles. DEPRECATED"
       parameters:
       - name: "feature"
         in: "query"
@@ -209,7 +213,7 @@ paths:
       - api_key: []
   /project:
     get:
-      description: "custom project data"
+      description: "Custom Project Data"
       parameters:
       - name: "feature"
         in: "query"
